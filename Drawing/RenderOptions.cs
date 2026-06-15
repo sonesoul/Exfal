@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Graphics;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     public struct RenderOptions
     {

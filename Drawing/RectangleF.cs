@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     [DebuggerDisplay("{DebugDisplayString,nq}")]
     public struct RectangleF

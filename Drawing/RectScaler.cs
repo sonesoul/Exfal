@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     public class RectScaler
     {

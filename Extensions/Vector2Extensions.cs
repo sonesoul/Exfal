@@ -2,7 +2,7 @@
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace xfal.Extensions
+namespace Exfal.Extensions
 {
     public static class Vector2Extensions
     {

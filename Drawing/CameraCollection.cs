@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     public class CameraCollection : SortedDictionary<int, Camera>
     {

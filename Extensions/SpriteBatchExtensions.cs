@@ -1,8 +1,8 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using xfal.Drawing;
+using Exfal.Drawing;
 
-namespace xfal.Extensions
+namespace Exfal.Extensions
 {
     public static class SpriteBatchExtensions
     {

@@ -2,7 +2,7 @@
 using Microsoft.Xna.Framework.Input;
 using System;
 
-namespace xfal.InputHandling
+namespace Exfal.InputHandling
 {
     public static class Input
     {

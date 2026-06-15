@@ -4,9 +4,9 @@ using nkast.Aether.Physics2D.Collision.Shapes;
 using nkast.Aether.Physics2D.Dynamics;
 using System;
 using System.Collections.Generic;
-using xfal.Extensions;
+using Exfal.Extensions;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     public class DrawContext
     {

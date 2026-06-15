@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace xfal.Extensions
+namespace Exfal.Extensions
 {
     public static class NumericExtensions
     {

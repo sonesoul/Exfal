@@ -1,7 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
-using xfal.Extensions;
+using Exfal.Extensions;
 
-namespace xfal
+namespace Exfal
 {
     public static class Time
     {

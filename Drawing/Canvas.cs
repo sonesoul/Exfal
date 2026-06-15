@@ -1,9 +1,9 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using xfal.Extensions;
+using Exfal.Extensions;
 using System;
 
-namespace xfal.Drawing
+namespace Exfal.Drawing
 {
     public class Canvas
     {

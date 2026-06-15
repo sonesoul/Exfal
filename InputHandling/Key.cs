@@ -1,6 +1,6 @@
 ﻿using Microsoft.Xna.Framework.Input;
 
-namespace xfal.InputHandling
+namespace Exfal.InputHandling
 {
     public enum Key
     {

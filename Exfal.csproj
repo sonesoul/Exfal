@@ -1,9 +1,9 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <ImplicitUsings>disable</ImplicitUsings>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyVersion>2.3.0</AssemblyVersion>
-    <FileVersion>2.3.0</FileVersion>
+    <AssemblyVersion>2.4.0</AssemblyVersion>
+    <FileVersion>2.4.0</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Aether.Physics2D.MG" Version="2.1.1" />
