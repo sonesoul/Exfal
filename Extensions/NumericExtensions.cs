@@ -33,8 +33,8 @@ namespace Exfal.Extensions
         public static float Deg2Rad(this float degrees) => degrees * MathF.PI / 180;
         public static float Rad2Deg(this float radians) => radians * 180f / MathF.PI;
 
-        public static float Floored(this float value) => (float)Math.Floor(value);
-        public static float Ceiled(this float value) => (float)Math.Ceiling(value);
-        public static float Rounded(this float value, int digits = 0) => (float)Math.Round(value, digits);
+        public static float Floored(this float value) => MathF.Floor(value);
+        public static float Ceiled(this float value) => MathF.Ceiling(value);
+        public static float Rounded(this float value, int digits = 0) => MathF.Round(value, digits);
     }
 }
