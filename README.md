@@ -2,6 +2,16 @@
 An XNA abstraction layer library that adds object oriented implementation of basic rendering system, input handling, time management, and even coroutines to simplify 
 creation of graphical applications and games when using XNA-compatible frameworks since it is based on Microsoft.Xna.Framework namespace.
 
+## Features
+
+- Object-oriented rendering system
+- Multiple cameras
+- Input handling
+- Time management
+- Coroutine system (StepTask)
+- Extensions for Vector2 and numerics
+- Works with MonoGame and other XNA-compatible frameworks
+
 ## Installation
 1. Download the latest release from https://github.com/sonesoul/Exfal/releases  
 2. Add Exfal.dll to your XNA or MonoGame project as a Project Reference (make sure your project is in .NET 6.0 or higher)
