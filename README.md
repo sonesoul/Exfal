@@ -218,8 +218,8 @@ if (Input.IsKeyDown(Key.MouseLeft))
 //or you can use events
 void HandleKey(Key k)
 {
-  if (k == MouseLeft)
-    DoSomething();
+    if (k == MouseLeft)
+        DoSomething();
 }
 
 Input.KeyPressed += HandleKey;
@@ -268,47 +268,37 @@ Exfal has LOTS of extensions. The most detailed ones are extensions for Vector2.
 
 v.Floored();               // Math.Floor(...) on both
 v.Ceiled();                // Math.Ceiling(...) on both
-v.SignFloored();           // Math.Floor(...) without sign condition on both
-v.SignCeiled();            // Math.Ceiling(...) without sign condition on both
 
 v.Abs();                   // Math.Abs(...) on both
 v.AbsX();                  // Math.Abs(...) on X
 v.AbsY();                  // Math.Abs(...) on Y
-v.IntCast();               // (int) on both
-v.Rounded(digits: 0);      // Math.Round(...) on both
+v.Truncated();             // (int) on both
+v.Rounded(digits: 0);      // MathF.Round(...) on both
 
 v.TakeX();                 // set v.Y to 0 
 v.TakeY();                 // set v.X to 0
 
-v.WhereX(123);             // set X to 123
-v.WhereY(123);             // set Y ti 123
-v.WhereX(x => x + 123);    // add 123 to X
-v.WhereY(y => y + 123);    // add 123 to Y
-
-v.MinSquare();             // set both on minimal value between X and Y
-v.MaxSquare();             // set both on maximum value between X and Y
+v.WithX(123);             // set X to 123
+v.WithY(123);             // set Y to 123
+v.WithX(x => x + 123);    // add 123 to X
+v.WithY(y => y + 123);    // add 123 to Y
 
 v.Min();                   // minimum value between X and Y
 v.Max();                   // maximum value between X and Y
 
-v.MaxAxis();               // set the smaller axis 0 (nothing changes if they are the same)
-v.MinAxis();               // set the greater axis 0 (nothing changes if they are the same)
-
-v.Normal();                // set X to -Y and Y to X
 v.Perpendicular();         // set X to Y and Y to -X
 
-v.UnitNormal();            // v.Normal() in range of 1
 v.Normalized();            // vector in range of 1
+v.Clamped(0, 123);         // limit X and Y between 0 and 123
 
-v.Dot(v2)                  // dot product on both
-v.Cross(v2);               // X1 * Y2 - Y1 * X2
+v.Dot(v2)                  // dot product
+v.Cross(v2);               // cross product
 v.DistanceTo(v2);          // distance between vectors
 v.RotatedAround(v2, r);    // rotated around v2 by r radians
 
 // supported operators: >, >=, <, <=, ==, !=
-
-bool anyAxisLess = vec.Any() < 123; //X || Y < 123 
+bool anyAxisLess = vec.Any() < 123; //X < 123 || Y < 123 
 
 // also supports +, -, *, /
-bool bothAxesEqual = v.Both() == 123; // X && Y == 123
+bool bothAxesEqual = v.Both() == 123; // X == 123 && Y == 123
 ```
