@@ -19,6 +19,8 @@ using Exfal.Extensions;      // Vector2Extensions, NumericExtensions ...
 This ensures the exact library version is tracked with the project and prevents dependency issues across machines.
 
 ## Quick Start
+No one wants to read through tones of text just to get started. Here's a quick start guide!
+
 ### 1. Initialize
 Initialize `Drawer` and `Asset`.
 
@@ -88,6 +90,8 @@ protected override void Draw(GameTime gameTime)
     base.Draw(gameTime);
 }
 ```
+You're done! This code draws a rectangle on the top left corner. It's red when nothing is pressed and is green when anything is pressed.
+
 
 # How To Use?
 Depending on your needs you can use specified modules of xfal. Basic modules are: 
@@ -104,8 +108,8 @@ To draw something, create a proper function.
 ```csharp
 void Draw(DrawContext draw)
 {
-  // draw a rectangle on 0,0 position with width and height 10
-  draw.Rectangle(new Rectangle(0, 0, 10, 10), Color.White);
+    // draw a rectangle on 0,0 position with width and height 10
+    draw.Rectangle(new Rectangle(0, 0, 10, 10), Color.White);
 } 
 ```
 > [!NOTE]
@@ -115,11 +119,11 @@ For `draw.Texture(...)` and some others there is the `DrawOptions` structure in 
 
 ```csharp
 DrawOptions opts = new DrawOptions() { 
-  position = new Vector2(x, y),
-  origin = new Vector2(x, y),
-  scale = new Vector2(width, height),
-  color = Color.White,
-  rotationRad = Deg2Rad(45) 
+    position = new Vector2(x, y),
+    origin = new Vector2(x, y),
+    scale = new Vector2(width, height),
+    color = Color.White,
+    rotationRad = Deg2Rad(45) 
 };
 
 //you can store it as long as you need and change at any time
@@ -135,8 +139,8 @@ drawer.OutputCamera.Register(Draw);
 ```
 You can also use more than one camera:
 ```csharp
-drawer.AddCamera(new Camera(renderSource, new Point(1920, 1080, order: 1)));
-drawer.GetCamera(1).Register(Draw);
+drawer.Cameras.Add(0, new Camera(renderSource, new Point(1920, 1080, order: 1)));
+drawer.Cameras[0].Register(Draw);
 ```
 > [!NOTE]
 > Each camera handles only its own registered draws.
@@ -238,10 +242,10 @@ This could be done the same way as mentioned in `YieldInstruction overriding`.
 ```csharp
 static class RectScalerExtensions
 {
-  public Rectangle MyScale(this RectScaler _, in Point source, in Rectangle target)
-  {
-    //do some calculations in there
-  }
+    public Rectangle MyScale(this RectScaler _, in Point source, in Rectangle target)
+    {
+        //do some calculations in there
+    }
 }
 
 //set it
