@@ -18,7 +18,78 @@ using Exfal.Extensions;      // Vector2Extensions, NumericExtensions ...
 > Copy Exfal.dll into your project directory and commit it to source control.
 This ensures the exact library version is tracked with the project and prevents dependency issues across machines.
 
-## How To Use?
+## Quick Start
+### 1. Initialize
+Initialize `Drawer` and `Asset`.
+
+```csharp
+private Point WindowSize { get; } = new(512, 512);
+
+private GraphicsDeviceManager _graphics;
+private SpriteBatch _spriteBatch;
+private Drawer _drawer; 
+
+public Game1() 
+{
+    _graphics = new GraphicsDeviceManager(this);
+    Content.RootDirectory = "Content";
+    Asset.Content = Content;
+}
+
+protected override void LoadContent()
+{
+    _spriteBatch = new SpriteBatch(GraphicsDevice);
+    _drawer = new(_spriteBatch, _graphics, WindowSize);
+
+    base.LoadContent();
+}
+```
+### 2. Register
+Register rendering and input handlers.
+
+```csharp
+bool _pressed = false;
+
+_drawer.OutputCamera.Register(DrawRect);
+
+Input.KeyPressed += k => _pressed = true;
+Input.KeyReleased += k => _pressed = false;
+
+void DrawRect(DrawContext draw)
+{    
+    draw.Rectangle(
+      new Rectangle(0, 0, 100, 100),
+      _pressed ? Color.Green : Color.Red);
+}
+```
+
+### 3. Update
+Update all the essential systems (Time, Input, StepTask).
+
+```csharp 
+protected override void Update(GameTime gameTime)
+{
+    Time.Update(gameTime);
+    Input.Update(gameTime);
+    StepTask.Update();
+
+    // your logic here
+
+    base.Update(gameTime);
+}
+```
+### 4. Draw
+Render the frame.
+
+```csharp
+protected override void Draw(GameTime gameTime) 
+{
+    _drawer.Draw();
+    base.Draw(gameTime);
+}
+```
+
+# How To Use?
 Depending on your needs you can use specified modules of xfal. Basic modules are: 
 
 [Rendering](#rendering)  
