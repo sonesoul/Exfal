@@ -252,9 +252,9 @@ This could be done the same way as mentioned in `YieldInstruction overriding`.
 ```csharp
 static class RectScalerExtensions
 {
-    public Rectangle MyScale(this RectScaler _, in Point source, in Rectangle target)
+    public static Rectangle MyScale(this RectScaler _, in Point source, in Rectangle target)
     {
-        //do some calculations in there
+        //do some calculations here
     }
 }
 
