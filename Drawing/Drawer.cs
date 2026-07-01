@@ -1,9 +1,6 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Exfal.Extensions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace Exfal.Drawing
 {
@@ -11,22 +8,33 @@ namespace Exfal.Drawing
     {
         public delegate Rectangle ScaleFunction(in Point source, in Rectangle target);
 
+        public static RectScaler OutputScaler { get; } = new();
+
         public RenderSource Source => Canvas.Source;
         public RenderOptions Options { get; set; } = new();
 
         public Canvas Canvas { get; set; }
 
-        public static RectScaler OutputScaler { get; } = new();
+        public CameraCollection Cameras { get; } = new();
 
         public ScaleFunction ScaleFunc { get; set; } = OutputScaler.Fit;
         public Color BackgroundColor { get; set; } = Color.Black;
 
-        public Camera OutputCamera { get; set; }
+        public Rectangle WindowBounds
+        {
+            get => _windowBounds;
+            set
+            {
+                if (_windowBounds != value)
+                {
+                    _windowBounds = value;
+                    _destination = ScaleFunc.Invoke(Canvas.Size, value);
+                }
+            }
+        }
 
         private GraphicsDevice Graphics => Source.Graphics;
         private SpriteBatch SpriteBatch => Source.SpriteBatch;
-
-        public CameraCollection Cameras { get; } = new();
 
         private Rectangle _destination;
         private Rectangle _windowBounds;
@@ -34,9 +42,8 @@ namespace Exfal.Drawing
         public Drawer(Canvas canvas)
         {
             Canvas = canvas;
-            OutputCamera = CreateCamera();
-
-            UpdateDestination();
+            Cameras[0] = CreateCamera();
+            WindowBounds = Graphics.Viewport.Bounds;
         }
         public Drawer(RenderSource source, Point size) : this(new Canvas(source, size)) { }
         public Drawer(SpriteBatch spriteBatch, GraphicsDeviceManager graphicsManager, Point size) : this(
@@ -46,15 +53,18 @@ namespace Exfal.Drawing
 
         public void Draw()
         {
-            RenderAll();
-            Clear();
-            DrawCanvas();
+            DrawToCanvas();
+
+            Graphics.Clear(BackgroundColor);
+            
+            SpriteBatch batch = SpriteBatch;
+
+            batch.Begin(Options);
+            batch.Draw(Canvas.RenderTarget, _destination, Color.White);
+            batch.End();
         }
-
-        public void RenderAll()
+        private void DrawToCanvas()
         {
-            OutputCamera.Render();
-
             foreach (var item in Cameras.Values)
             {
                 item.Render();
@@ -62,41 +72,14 @@ namespace Exfal.Drawing
 
             Canvas.Begin();
 
-            void DrawItem(Camera item)
-            {
-                SpriteBatch.Draw(item.RenderTarget, new Rectangle(_windowBounds.Location, Canvas.Size), Color.White);
-            }
-
-            DrawItem(OutputCamera);
+            Rectangle dst = new(_windowBounds.Location, Canvas.Size);
 
             foreach (var item in Cameras.Values)
             {
-                DrawItem(item);
+                SpriteBatch.Draw(item.RenderTarget, dst, Color.White);
             }
 
             Canvas.End();
-        }
-        public void DrawCanvas()
-        {
-            SpriteBatch batch = SpriteBatch;
-
-            if (_windowBounds != Graphics.Viewport.Bounds)
-            {
-                UpdateDestination();
-            }
-
-            batch.Begin(Options);
-            
-            batch.Draw(
-                Canvas.RenderTarget,
-                _destination, 
-                Color.White);
-
-            batch.End();
-        }
-        public void Clear()
-        {
-            Graphics.Clear(BackgroundColor);
         }
 
         public Camera CreateCamera()
@@ -113,12 +96,6 @@ namespace Exfal.Drawing
             return new(
                 new NormalizedPoint(point, _destination.ToRectangleF()), 
                 Canvas.Size.ToVector2());
-        }
-
-        private void UpdateDestination()
-        {
-            _destination = ScaleFunc.Invoke(Canvas.Size, Graphics.Viewport.Bounds);
-            _windowBounds = Graphics.Viewport.Bounds;
         }
     }
 }

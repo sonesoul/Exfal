@@ -2,8 +2,8 @@
   <PropertyGroup>
     <ImplicitUsings>disable</ImplicitUsings>
     <TargetFramework>net6.0</TargetFramework>
-    <AssemblyVersion>4.0.1</AssemblyVersion>
-    <FileVersion>4.0.0</FileVersion>
+    <AssemblyVersion>5.0.1</AssemblyVersion>
+    <FileVersion>4.0.1</FileVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="MonoGame.Framework.DesktopGL" Version="3.8.1.303">
