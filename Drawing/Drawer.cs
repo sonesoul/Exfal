@@ -107,29 +107,11 @@ namespace Exfal.Drawing
             };
         }
 
-        public Vector2 ScreenToCanvasPoint(Vector2 point)
+        public ViewportPoint ToViewportPoint(Vector2 point)
         {
-            Vector2 normalizedPoint = NormalizePoint(point, destination);
-            Vector2 canvasPoint = normalizedPoint * Canvas.Size.ToVector2();
-
-            return canvasPoint.Floored();
-        }
-        public Vector2 ScreenToWorldPoint(Vector2 point, Camera camera)
-        {
-            Vector2 canvasPoint = ScreenToCanvasPoint(point);
-
-            return (canvasPoint / (Canvas.Size.ToVector2() / camera.Size.ToVector2()) + camera.Position).Floored();
-        }
-        public Vector2 ScreenToWorldPoint(Vector2 point) => ScreenToWorldPoint(point, OutputCamera);
-
-        public int SafeIndex()
-        {
-            return Cameras.Count > 0 ? Cameras.Last().Key + 1 : 0;
-        }
-
-        public static Vector2 NormalizePoint(Vector2 point, Rectangle destination)
-        {
-            return (point - destination.Location.ToVector2()) / destination.Size.ToVector2();
+            return new(
+                new NormalizedPoint(point, destination.ToRectangleF()), 
+                Canvas.Size.ToVector2());
         }
     }
 }

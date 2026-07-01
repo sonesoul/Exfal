@@ -27,7 +27,7 @@ namespace Exfal.Drawing
             Location = location;
             Size = size;
         }
-
+        
         public readonly bool Contains(float x, float y)
         {
             return x >= Left && x < Right && y >= Top && y < Bottom;
