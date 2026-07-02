@@ -62,11 +62,14 @@ Register rendering and input handlers.
 ```csharp
 bool _pressed = false;
 
-_drawer.OutputCamera.Register(DrawRect);
+protected override void Initialize()
+{
+    _drawer.OutputCamera.Register(DrawRect);
+    Input.KeyPressed += k => _pressed = true;
+    Input.KeyReleased += k => _pressed = false;
 
-Input.KeyPressed += k => _pressed = true;
-Input.KeyReleased += k => _pressed = false;
-
+    base.Initialize();
+}
 void DrawRect(DrawContext draw)
 {    
     draw.Rectangle(
