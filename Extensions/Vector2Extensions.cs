@@ -74,7 +74,15 @@ namespace Exfal.Extensions
         }
         public static Vector2 Perpendicular(this Vector2 v) => new(v.Y, -v.X);
 
-        public static Vector2 Normalized(this Vector2 v) => Vector2.Normalize(v);
+        public static Vector2 Normalized(this Vector2 v, double epsilon = 0)
+        {
+            if (v.LengthSquared() > epsilon)
+            {
+                v = Vector2.Normalize(v);
+            }
+
+            return v;
+        }
 
         public static float DistanceTo(this Vector2 a, Vector2 b) => Vector2.Distance(a, b);
 
