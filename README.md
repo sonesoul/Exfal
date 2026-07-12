@@ -1,6 +1,6 @@
 # Exfal
-A MonoGame abstraction layer library that adds object oriented implementation of advanced rendering system, input handling, time management, and even coroutines! The purpose is to simplify 
-creation of graphical applications and games when using XNA-compatible frameworks (such as MonoGame) since it is based on Microsoft.Xna.Framework namespace.
+Exfal is a painkiller for MonoGame, providing an advanced rendering pipeline, input handling, time management, and coroutines. 
+It simplifies the development of games and graphical applications built on XNA-compatible frameworks such as MonoGame.
 
 ## Features
 
@@ -127,7 +127,7 @@ void Draw(DrawContext draw)
 } 
 ```
 > [!NOTE]
-> `DrawContext` has different kinds of methods for drawing. You can still use `SpriteBatch.Draw(...)`, but **DO NOT** use `SpriteBatch.Begin(...)` or `SpriteBatch.End(...)`.
+> `DrawContext` has different kinds of methods for drawing. You can still use `SpriteBatch.Draw(...)`
 
 For `draw.Texture(...)` and some others there is the `DrawOptions` structure in arguments. It is used to combine several parameters in one object, so consider it as just a simpler way to give arguments: 
 
@@ -160,7 +160,7 @@ drawer.Cameras[1].Register(Draw);
 > [!NOTE]
 > Each camera handles only its own registered draws.
 
-Call `drawer.Draw()` in your draw-cycle. 
+Call `drawer.Draw()` in your draw cycle. Do not call `SpriteBatch.Begin(...)` or `SpriteBatch.End(...)` while `drawer.Draw()` is executing, as it already handles both calls internally.
 
 # StepTask 
 StepTask is a kind of coroutine. It helps with organizing independent running methods: interpolations, delays, etc. 
