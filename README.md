@@ -30,7 +30,7 @@ using Exfal.Extensions;      // Vector2Extensions, NumericExtensions ...
 This ensures the exact library version is tracked with the project and prevents dependency issues across machines.
 
 ## Quick Start
-No one wants to read through tones of text just to get started. Here's a quick start guide!
+No one wants to read through tons of text just to get started. Here's a quick start guide!
 
 ### 1. Initialize
 Initialize `Drawer` and `Asset`.
