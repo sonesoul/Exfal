@@ -108,14 +108,14 @@ You're done! This code draws a rectangle on the top left corner. It's red when n
 
 
 # How To Use?
-Depending on your needs you can use specified modules of xfal. Basic modules are: 
+You can use only the modules you need. Basic modules are: 
 
 [Rendering](#rendering)  
 [StepTask (coroutine)](#steptask)  
 [Time](#time)  
 [Input](#input)  
 
-Mostly they are all separate. If you don't need a module - just ignore it unless otherwise expected.
+All modules are designed to work independently. If you don't need a module, simply don't use it.
 
 # Rendering
 To draw something, create a proper function.
