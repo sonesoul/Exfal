@@ -13,18 +13,6 @@ It simplifies the development of games and graphical applications by handling co
 - Extensions for Vector2 and numerics
 - Works with MonoGame and other XNA-compatible frameworks
 
-## Installation
-1. Download the latest release from https://github.com/sonesoul/Exfal/releases  
-2. Add Exfal.dll to your XNA or MonoGame project as a Project Reference (make sure your project is in .NET 6.0 or higher)
-3. Add usings
-```csharp
-using Exfal;                 // StepTask, Time, Asset ...
-using Exfal.Drawing;         // Drawer, Camera, DrawContext ...
-using Exfal.InputHandling;   // Input, Key
-using Exfal.Extensions;      // Vector2Extensions, NumericExtensions ...
-```
-4. You're done!
-
 ## Quick Start
 No one wants to read through tons of text just to get started. Here's a quick start guide!
 
