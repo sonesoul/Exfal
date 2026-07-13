@@ -18,7 +18,7 @@
 	</Description>
 
 	<PackageTags>monogame;gamedev;library;rendering;coroutines;</PackageTags>
-	<RepositoryUrl>https://github.com/sonesoul/Exfal</RepositoryUrl>
+	<RepositoryUrl>https://github.com/Esterhasz/Exfal</RepositoryUrl>
 	<PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageLicenseFile>LICENSE</PackageLicenseFile>  
 	<PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
