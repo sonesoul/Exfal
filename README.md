@@ -25,10 +25,6 @@ using Exfal.Extensions;      // Vector2Extensions, NumericExtensions ...
 ```
 4. You're done!
 
-> [!TIP]
-> Copy Exfal.dll into your project directory and commit it to source control.
-This ensures the exact library version is tracked with the project and prevents dependency issues across machines.
-
 ## Quick Start
 No one wants to read through tons of text just to get started. Here's a quick start guide!
 
