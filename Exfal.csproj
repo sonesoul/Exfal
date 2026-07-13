@@ -10,8 +10,8 @@
 
 	<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 	<PackageId>Exfal</PackageId>
-	<Authors>sonesoul</Authors>
-	<Company>sonesoul</Company>
+	<Authors>Esterhasz</Authors>
+	<Company>Esterhasz</Company>
 
 	<Description>
 		The MonoGame painkiller. Provides rendering, input handling, time management, coroutines, and other utilities for game development
