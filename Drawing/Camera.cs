@@ -14,7 +14,7 @@ namespace Exfal.Drawing
         public SortedDictionary<int, List<DrawAction>> Layers { get; } = new();
         public DrawContext Context { get; private set; }
 
-        public Camera(RenderSource source, Point size) : base(source, size)
+        public Camera(GraphicsProvider graphics, Point size) : base(graphics, size)
         {
             Layers[DefaultLayer] = new();
         }
@@ -39,10 +39,10 @@ namespace Exfal.Drawing
             End();
         }
 
-        protected override void SetSource(RenderSource source)
+        protected override void SetGraphics(GraphicsProvider graphics)
         {
-            base.SetSource(source);
-            Context = new(source)
+            base.SetGraphics(graphics);
+            Context = new(graphics)
             {
                 Camera = this,
                 Layer = DefaultLayer

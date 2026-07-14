@@ -13,10 +13,10 @@ namespace Exfal.Drawing
         public Camera Camera { get; internal set; }
         public int Layer { get; internal set; }
 
-        public DrawContext(RenderSource source)
+        public DrawContext(GraphicsProvider graphics)
         {
-            SpriteBatch = source.SpriteBatch;
-            PixelTexture = source.Pixel;
+            SpriteBatch = graphics.SpriteBatch;
+            PixelTexture = graphics.Pixel;
         }
 
         public void String(string str, SpriteFont font, Vector2 position, Color color, Vector2 scale, Vector2 origin, float rotationRad = 0)

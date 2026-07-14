@@ -34,9 +34,9 @@ namespace Exfal.Drawing
             }
         }
 
-        public RenderSource Source => Surface.Source;
-        private GraphicsDevice Graphics => Source.Graphics;
-        private SpriteBatch SpriteBatch => Source.SpriteBatch;
+        public GraphicsProvider Graphics => Surface.Graphics;
+        private GraphicsDevice Device => Graphics.Device;
+        private SpriteBatch SpriteBatch => Graphics.SpriteBatch;
 
         private Rectangle _destination;
         private Rectangle _windowBounds;
@@ -45,12 +45,12 @@ namespace Exfal.Drawing
         {
             Surface = surface;
             Cameras[DefaultCameraIndex] = CreateCamera();
-            WindowBounds = Graphics.Viewport.Bounds;
+            WindowBounds = Device.Viewport.Bounds;
         }
-        public Renderer(RenderSource source, Point size) : this(new Surface(source, size)) { }
+        public Renderer(GraphicsProvider provider, Point size) : this(new Surface(provider, size)) { }
         public Renderer(SpriteBatch spriteBatch, GraphicsDeviceManager graphicsManager, Point size) : this(
             new Surface(
-                new RenderSource(spriteBatch, graphicsManager), 
+                new GraphicsProvider(spriteBatch, graphicsManager), 
                 size)) { }
 
         public void Draw()
@@ -59,7 +59,6 @@ namespace Exfal.Drawing
             {
                 item.Draw();
             }
-
 
             Surface.Begin();
             Rectangle dst = new(_windowBounds.Location, Surface.Size);
@@ -70,7 +69,7 @@ namespace Exfal.Drawing
             }
             Surface.End();
 
-            Graphics.Clear(BackgroundColor);
+            Device.Clear(BackgroundColor);
             
             SpriteBatch batch = SpriteBatch;
 
@@ -81,7 +80,7 @@ namespace Exfal.Drawing
 
         public Camera CreateCamera()
         {
-            return new(Source, Surface.Size)
+            return new(Graphics, Surface.Size)
             {
                 BackgroundColor = Surface.BackgroundColor,
                 Options = Options

@@ -13,10 +13,10 @@ namespace Exfal.Drawing
         public ref RenderOptions Options => ref _options;
 
         public RenderTarget2D RenderTarget { get; private set; }
-        public RenderSource Source { get => _source; set => SetSource(value); }
+        public GraphicsProvider Graphics { get => _graphics; set => SetGraphics(value); }
         public Point Size { get => _size; set => SetSize(value); } 
 
-        protected RenderSource _source;
+        protected GraphicsProvider _graphics;
 
         protected Vector2 _position = Vector2.Zero;
         protected RenderOptions _options = new();
@@ -24,25 +24,25 @@ namespace Exfal.Drawing
 
         protected Point _size;
 
-        public Surface(RenderSource source, Point size)
+        public Surface(GraphicsProvider provider, Point size)
         {
-            Source = source;
+            Graphics = provider;
             SetSize(size);
         }
         
         public virtual void Begin()
         {
-            var graphics = Source.Graphics;
+            var graphics = Graphics.Device;
 
             graphics.SetRenderTarget(RenderTarget);
             graphics.Clear(BackgroundColor);
 
-            Source.SpriteBatch.Begin(Options, GetViewMatrix());
+            Graphics.SpriteBatch.Begin(Options, GetViewMatrix());
         }
         public virtual void End()
         {
-            Source.SpriteBatch.End();
-            Source.Graphics.SetRenderTarget(null);
+            Graphics.SpriteBatch.End();
+            Graphics.Device.SetRenderTarget(null);
         }
 
         public virtual Matrix GetViewMatrix() => Matrix.CreateTranslation(new(-Position, 0));
@@ -59,12 +59,12 @@ namespace Exfal.Drawing
                 throw new ArgumentOutOfRangeException(nameof(newSize), "Surface height cannot be less than one.");
 
             RenderTarget?.Dispose();
-            RenderTarget = new(Source.Graphics, newSize.X, newSize.Y);
+            RenderTarget = new(Graphics.Device, newSize.X, newSize.Y);
             _size = newSize;
         }
-        protected virtual void SetSource(RenderSource source)
+        protected virtual void SetGraphics(GraphicsProvider graphics)
         {
-            _source = source ?? throw new ArgumentNullException(nameof(source), "Render source can't be null."); ;
+            _graphics = graphics ?? throw new ArgumentNullException(nameof(graphics), "Graphics provider can't be null."); ;
         }
 
         public Vector2 ToWorldPoint(ViewportPoint point)
