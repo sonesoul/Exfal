@@ -12,10 +12,9 @@ namespace Exfal.Drawing
 
         public static RectScaler OutputScaler { get; } = new();
 
-        public RenderSource Source => Canvas.Source;
         public RenderOptions Options { get; set; } = new();
 
-        public Canvas Canvas { get; set; }
+        public Surface Surface { get; set; }
 
         public CameraCollection Cameras { get; } = new();
 
@@ -30,65 +29,61 @@ namespace Exfal.Drawing
                 if (_windowBounds != value)
                 {
                     _windowBounds = value;
-                    _destination = ScaleFunc.Invoke(Canvas.Size, value);
+                    _destination = ScaleFunc.Invoke(Surface.Size, value);
                 }
             }
         }
 
+        public RenderSource Source => Surface.Source;
         private GraphicsDevice Graphics => Source.Graphics;
         private SpriteBatch SpriteBatch => Source.SpriteBatch;
 
         private Rectangle _destination;
         private Rectangle _windowBounds;
 
-        public Renderer(Canvas canvas)
+        public Renderer(Surface surface)
         {
-            Canvas = canvas;
+            Surface = surface;
             Cameras[DefaultCameraIndex] = CreateCamera();
             WindowBounds = Graphics.Viewport.Bounds;
         }
-        public Renderer(RenderSource source, Point size) : this(new Canvas(source, size)) { }
+        public Renderer(RenderSource source, Point size) : this(new Surface(source, size)) { }
         public Renderer(SpriteBatch spriteBatch, GraphicsDeviceManager graphicsManager, Point size) : this(
-            new Canvas(
+            new Surface(
                 new RenderSource(spriteBatch, graphicsManager), 
                 size)) { }
 
         public void Draw()
-        {
-            DrawToCanvas();
-
-            Graphics.Clear(BackgroundColor);
-            
-            SpriteBatch batch = SpriteBatch;
-
-            batch.Begin(Options);
-            batch.Draw(Canvas.RenderTarget, _destination, Color.White);
-            batch.End();
-        }
-        private void DrawToCanvas()
         {
             foreach (var item in Cameras.Values)
             {
                 item.Render();
             }
 
-            Canvas.Begin();
 
-            Rectangle dst = new(_windowBounds.Location, Canvas.Size);
+            Surface.Begin();
+            Rectangle dst = new(_windowBounds.Location, Surface.Size);
 
             foreach (var item in Cameras.Values)
             {
                 SpriteBatch.Draw(item.RenderTarget, dst, Color.White);
             }
+            Surface.End();
 
-            Canvas.End();
+            Graphics.Clear(BackgroundColor);
+            
+            SpriteBatch batch = SpriteBatch;
+
+            batch.Begin(Options);
+            batch.Draw(Surface.RenderTarget, _destination, Color.White);
+            batch.End();
         }
 
         public Camera CreateCamera()
         {
-            return new(Source, Canvas.Size)
+            return new(Source, Surface.Size)
             {
-                BackgroundColor = Canvas.BackgroundColor,
+                BackgroundColor = Surface.BackgroundColor,
                 Options = Options
             };
         }
@@ -97,7 +92,7 @@ namespace Exfal.Drawing
         {
             return new(
                 new NormalizedPoint(point, _destination.ToRectangleF()), 
-                Canvas.Size.ToVector2());
+                Surface.Size.ToVector2());
         }
     }
 }

@@ -5,7 +5,7 @@ using System;
 
 namespace Exfal.Drawing
 {
-    public class Canvas
+    public class Surface
     {
         public ref Vector2 Position => ref _position;
 
@@ -24,7 +24,7 @@ namespace Exfal.Drawing
 
         protected Point _size;
 
-        public Canvas(RenderSource source, Point size)
+        public Surface(RenderSource source, Point size)
         {
             Source = source;
             SetSize(size);

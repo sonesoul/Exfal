@@ -7,7 +7,7 @@ namespace Exfal.Drawing
     public delegate void DrawAction(DrawContext draw);
 
     [DebuggerDisplay("{ToString(),nq}")]
-    public class Camera : Canvas
+    public class Camera : Surface
     {
         public const int DefaultLayer = 0;
 
