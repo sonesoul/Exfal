@@ -71,5 +71,10 @@ namespace Exfal.Drawing
             };
         }
         public override string ToString() => $"{Position} {Size.X}x{Size.Y}";
+
+        public override Vector2 ToWorldPoint(ViewportPoint point)
+        {
+            return base.ToWorldPoint(point) + Position;
+        }
     }
 }

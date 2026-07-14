@@ -54,9 +54,9 @@ namespace Exfal.Drawing
             _graphics = graphics ?? throw new ArgumentNullException(nameof(graphics), "Graphics provider can't be null."); ;
         }
 
-        public Vector2 ToWorldPoint(ViewportPoint point)
+        public virtual Vector2 ToWorldPoint(ViewportPoint point)
         {
-            return (point.val / (point.view / Size.ToVector2()) + Position);
+            return point.val / (point.view / Size.ToVector2());
         }
     }
 }
