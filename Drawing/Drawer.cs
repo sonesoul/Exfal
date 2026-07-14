@@ -8,6 +8,8 @@ namespace Exfal.Drawing
     {
         public delegate Rectangle ScaleFunction(in Point source, in Rectangle target);
 
+        public const int DefaultCameraIndex = 0;
+
         public static RectScaler OutputScaler { get; } = new();
 
         public RenderSource Source => Canvas.Source;
@@ -42,7 +44,7 @@ namespace Exfal.Drawing
         public Drawer(Canvas canvas)
         {
             Canvas = canvas;
-            Cameras[0] = CreateCamera();
+            Cameras[DefaultCameraIndex] = CreateCamera();
             WindowBounds = Graphics.Viewport.Bounds;
         }
         public Drawer(RenderSource source, Point size) : this(new Canvas(source, size)) { }
