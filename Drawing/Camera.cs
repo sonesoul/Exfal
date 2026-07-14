@@ -19,7 +19,7 @@ namespace Exfal.Drawing
             Layers[DefaultLayer] = new();
         }
 
-        public void Render()
+        public void Draw()
         {
             Begin();
 

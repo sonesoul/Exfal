@@ -57,7 +57,7 @@ namespace Exfal.Drawing
         {
             foreach (var item in Cameras.Values)
             {
-                item.Render();
+                item.Draw();
             }
 
 
