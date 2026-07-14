@@ -17,26 +17,25 @@ It simplifies the development of games and graphical applications by handling co
 No one wants to read through tons of text just to get started. Here's a quick start guide!
 
 ### 1. Initialize
-Initialize `Drawer` and `Asset`.
+Initialize `Renderer`
 
 ```csharp
 private Point WindowSize { get; } = new(512, 512);
 
 private GraphicsDeviceManager _graphics;
 private SpriteBatch _spriteBatch;
-private Drawer _drawer; 
+private Renderer _renderer; 
 
 public Game1() 
 {
     _graphics = new GraphicsDeviceManager(this);
     Content.RootDirectory = "Content";
-    Asset.Content = Content;
 }
 
 protected override void LoadContent()
 {
     _spriteBatch = new SpriteBatch(GraphicsDevice);
-    _drawer = new(_spriteBatch, _graphics, WindowSize);
+    _renderer = new(_spriteBatch, _graphics, WindowSize);
 
     base.LoadContent();
 }
@@ -49,7 +48,11 @@ bool _pressed = false;
 
 protected override void Initialize()
 {
-    _drawer.Cameras[0].Layers[0].Add(DrawRect);
+    _renderer
+        .Cameras[Renderer.DefaultCameraIndex]
+        .Layers[Camera.DefaultLayer]
+        .Add(DrawRect);
+        
     Input.KeyPressed += k => _pressed = true;
     Input.KeyReleased += k => _pressed = false;
 
@@ -84,7 +87,7 @@ Render the frame.
 ```csharp
 protected override void Draw(GameTime gameTime) 
 {
-    _drawer.Draw();
+    _renderer.Draw();
     base.Draw(gameTime);
 }
 ```
@@ -127,24 +130,22 @@ DrawOptions opts = new DrawOptions() {
 //you can store it as long as you need and change at any time
 opts.position = Vector2.Zero;
 
-drawer.DrawTexture(texture, opts);
+renderer.DrawTexture(texture, opts);
 ```
 
 Then, you'll have to register the method:
 ```csharp
-//registering for rendering
-//0 - default camera
-drawer.Cameras[0].Register(Draw);
+renderer.Cameras[Renderer.DefaultCameraIndex].Register(Draw);
 ```
 You can also use more than one camera:
 ```csharp
-drawer.Cameras.Add(1, new Camera(renderSource, new Point(1920, 1080)));
-drawer.Cameras[1].Register(Draw);
+renderer.Cameras.Add(1, new Camera(renderer.Graphics, new Point(1920, 1080)));
+renderer.Cameras[1].Register(Draw);
 ```
 > [!NOTE]
 > Each camera handles only its own registered draws.
 
-Call `drawer.Draw()` in your draw cycle. Do not call `SpriteBatch.Begin(...)` or `SpriteBatch.End(...)` while `drawer.Draw()` is executing, as it already handles both calls internally.
+Call `renderer.Draw()` in your draw cycle. Do not call `SpriteBatch.Begin(...)` or `SpriteBatch.End(...)` while `renderer.Draw()` is executing, as it already handles both calls internally.
 
 # StepTask 
 StepTask is a kind of coroutine. It helps with organizing independent running methods: interpolations, delays, etc. 
@@ -208,16 +209,15 @@ Input.KeyPressed += HandleKey;
 Input.KeyReleased += HandleKey;
 ``` 
 > [!NOTE]
-> There is `Input.MousePosition` property. It returns position on the screen. Since cameras can have different resolution, you'll have to use `drawer.ToViewportPoint` and then `camera.ToWorldPoint` to get position based on the viewport of the camera.
+> There is `Input.MousePosition` property. It returns position on the screen. Since cameras can have different resolution, you'll have to use `renderer.ToViewportPoint` and then `camera.ToWorldPoint` to get position based on the viewport of the camera.
 
 # Tips
 Rendering module makes resolution of the application static. If you want to use this ✨ _fancy_ ✨ rendering system but don't want to deal with static resolution, there is an easy fix: 
 ```csharp
 Window.ClientSizeChanged += (obj, args) =>
 {
-    drawer.Canvas.Size = Window.ClientBounds.Size;
-    drawer.Cameras[0].Size = Window.ClientBounds.Size;
-    // 0 = default camera
+    renderer.Surface.Size = Window.ClientBounds.Size;
+    renderer.Cameras[Renderer.DefaultCameraIndex].Size = Window.ClientBounds.Size;
 };
 ```
 > [!NOTE]
@@ -226,11 +226,11 @@ Window.ClientSizeChanged += (obj, args) =>
 
 Each `Camera` has its own properties for drawing. You can make its background transparent which can be really useful when you have a camera used only for UI rendering.
 ```csharp
-drawer.Cameras[myUiCamera].BackgroundColor = Color.Transparent; 
+renderer.Cameras[myUiCamera].BackgroundColor = Color.Transparent; 
 ```
 ---
 
-When `Graphics.Viewport` changes, `Drawer` automatically adjusts output using specific scaling function. You can make and use your own one!
+When `Graphics.Viewport` changes, `Renderer` automatically adjusts output using specific scaling function. You can make and use your own one!
 This could be done the same way as mentioned in `YieldInstruction overriding`. 
 ```csharp
 static class RectScalerExtensions
@@ -242,7 +242,7 @@ static class RectScalerExtensions
 }
 
 //set it
-drawer.ScaleFunc = Drawer.OutputScaler.MyScale;
+renderer.ScaleFunc = Renderer.OutputScaler.MyScale;
 ```
 ---
 Exfal has LOTS of extensions. The most detailed ones are extensions for `Vector2`. 
