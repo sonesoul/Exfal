@@ -49,7 +49,7 @@ bool _pressed = false;
 
 protected override void Initialize()
 {
-    _drawer.OutputCamera.Register(DrawRect);
+    _drawer.Cameras[0].Layers[0].Add(DrawRect);
     Input.KeyPressed += k => _pressed = true;
     Input.KeyReleased += k => _pressed = false;
 
